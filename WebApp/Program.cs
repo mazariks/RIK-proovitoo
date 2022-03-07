@@ -16,7 +16,7 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     
     //In testing purposes it is up to you whether to drop db on startup or not.
-    dbContext.Database.EnsureDeleted();
+    //dbContext.Database.EnsureDeleted();
     
     // Db creation on startup if not created yet.
     dbContext.Database.Migrate();
