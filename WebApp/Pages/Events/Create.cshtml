@@ -1,0 +1,48 @@
+@page
+@model WebApp.Pages.Events.CreateModel
+
+@{
+    ViewData["Title"] = "Ürituse loomine";
+}
+
+<h1>Loo uus üritus</h1>
+<hr />
+<div class="row">
+    <div class="col-5">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Event.Naming" class="control-label">Nimetus</label>
+                <input asp-for="Event.Naming" class="form-control" />
+                <span asp-validation-for="Event.Naming" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.StartsAt" class="control-label">Algus</label>
+                <input asp-for="Event.StartsAt" type="datetime-local" value="" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
+                <span asp-validation-for="Event.StartsAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Place" class="control-label">Koht</label>
+                <input asp-for="Event.Place" class="form-control" />
+                <span asp-validation-for="Event.Place" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.AdditionalInfo" class="control-label">Lisainfo</label>
+                <textarea asp-for="Event.AdditionalInfo" class="form-control"></textarea>
+                <span asp-validation-for="Event.AdditionalInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input id="eventCreateSubmit" type="submit" value="Loo uus üritus" class="btn btn-success" />
+                <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

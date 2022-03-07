@@ -1,0 +1,47 @@
+@page
+@using Domain
+@model WebApp.Pages.Events.EditModel
+
+@{
+    ViewData["Title"] = "Ürituse andmete muutmine";
+}
+
+<h1>Ürituse andmete muutmine</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Event.Naming" class="control-label">Nimetus</label>
+                <input asp-for="Event.Naming" class="form-control" />
+                <span asp-validation-for="Event.Naming" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.StartsAt" class="control-label">Algus</label>
+                <input asp-for="Event.StartsAt" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
+                <span asp-validation-for="Event.StartsAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Place" class="control-label">Koht</label>
+                <input asp-for="Event.Place" class="form-control" />
+                <span asp-validation-for="Event.Place" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.AdditionalInfo" class="control-label">Lisainfo</label>
+                <textarea asp-for="Event.AdditionalInfo" class="form-control"></textarea>
+                <span asp-validation-for="Event.AdditionalInfo" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Event.CreatedAt"/>
+            <input type="hidden" asp-for="Event.Id" />
+            <div class="form-group mt-2">
+                <input type="submit" id="eventEditSubmit" value="Salvesta" class="btn btn-success" />
+                <a role="button" class="btn btn-primary" asp-page="../Events/Details" asp-route-id="@Model.Event.Id">Tagasi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

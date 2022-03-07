@@ -1,0 +1,77 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Avaleht";
+}
+<div class="display-3 text-center">Ürituste registreerimise äpp</div>
+<div class="text-center">
+    <a asp-page="/Events/Create" role="button" class="btn btn-success">Lisa üritus</a>
+</div>
+
+<div class="text-center">
+    @if (Model.Events!.Count == 0)
+    {
+        <p class="fw-bold" id="noEvents">Ühtegi üritust pole.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Nimetus
+                </th>
+                <th>
+                    Algus
+                </th>
+                <th>
+                    Koht
+                </th>
+                <th>
+                    Osalejate arv
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Events!)
+            {
+                int? count = 0;
+                foreach (var eventParticipant in item.EventParticipants!)
+                {
+                    if (!eventParticipant.IsDeleted && !eventParticipant.Participant!.IsDeleted && eventParticipant.Participant!.Type == 'f')
+                    {
+                        count += 1;
+                    }
+                    if (!eventParticipant.IsDeleted && !eventParticipant.Participant!.IsDeleted && eventParticipant.Participant!.Type == 'j')
+                    {
+                        count += eventParticipant.Participant!.AmountOfGuests;
+                    }
+                }
+                <tr class="event-main-info">
+                    <td>
+                        <a id="details-event-@item.Id" asp-page="Events/Details" id="@item.Id" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Naming)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartsAt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Place)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => count)
+                    </td>
+                    <td>
+                        <a role="button" class="btn btn-sm btn-success" id="add-participant-@item.Id" asp-page="/Participants/ExistingParticipants" asp-route-id="@item.Id">Lisa osaleja</a>
+                        @if (item.StartsAt > DateTime.Now)
+                        {
+                            @Html.Raw("|")
+                            <a role="button" class="btn btn-sm btn-danger" id="delete-event-@item.Id" asp-page="/Events/Delete" asp-route-id="@item.Id">Kustuta üritus</a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>

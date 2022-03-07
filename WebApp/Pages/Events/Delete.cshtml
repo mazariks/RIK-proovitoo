@@ -1,0 +1,59 @@
+@page
+@model WebApp.Pages.Events.DeleteModel
+
+@{
+    ViewData["Title"] = "Ürituse kustutamine";
+}
+
+<h1>Ürituse kustutamine</h1>
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nimetus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Naming)
+        </dd>
+        <dt class="col-sm-2">
+            Algus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.StartsAt)
+        </dd>
+        <dt class="col-sm-2">
+            Koht
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Place)
+        </dd>
+        <dt class="col-sm-2">
+            Lisainfo
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Event.AdditionalInfo != null)
+            {
+                @Html.DisplayFor(model => model.Event.AdditionalInfo)
+            }
+            else
+            {
+                @Html.Raw("-")
+            }
+        </dd>
+    </dl>
+
+    <form method="post">
+        @if (Model.Event.EventParticipants!.Count(ep => !ep.IsDeleted) > 0)
+        {
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FullDelete"/> Kustutada osalejaid täielikult ära? ("jah"-valikul ei ole osalejad kättesaadavad üritusele lisamiseks.)
+                </label>
+            </div>
+        }
+        <input type="hidden" asp-for="Event.CreatedAt"/>
+        <input type="hidden" asp-for="Event.Id"/>
+        <input id="eventFinalDeleteButton" type="submit" value="Kustuta" class="btn btn-danger"/> |
+        <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+    </form>
+</div>

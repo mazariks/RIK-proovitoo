@@ -1,0 +1,94 @@
+@page
+@using Domain
+@model WebApp.Pages.Participants.DetailsModel
+
+@{
+    ViewData["Title"] = "Osaleja andmed";
+}
+
+<h1>Osaleja andmed</h1>
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Maksmise viis
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Participant.PaymentType == PaymentType.Transfer)
+            {
+                @Html.Raw("panga ülekanne")
+            }
+            else
+            {
+                @Html.Raw("sularaha")
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Tüüp
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Participant.Type == 'f')
+            {
+                @Html.Raw("füüsiline")
+            }
+            else
+            {
+                @Html.Raw("juriidiline")
+            }
+        </dd>
+        @if (Model.Participant.Type == 'f')
+        {
+            <dt class="col-sm-2">
+                Nimi
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Participant.FullName)
+            </dd>
+            <dt class="col-sm-2">
+                Isikukood
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Participant.IdentityCode)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                Nimetus
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Participant.Naming)
+            </dd>
+            <dt class="col-sm-2">
+                Registrikood
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Participant.RegisterCode)
+            </dd>
+            <dt class="col-sm-2">
+                Osalejate arv
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Participant.AmountOfGuests)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Lisainfo
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Participant.AdditionalInfo != null)
+            {
+                @Html.DisplayFor(model => model.Participant.AdditionalInfo)
+            }
+            else
+            {
+                @Html.Raw("-")
+                ;
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a role="button" class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Participant.Id">Muuda andmed</a> |
+    <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+</div>

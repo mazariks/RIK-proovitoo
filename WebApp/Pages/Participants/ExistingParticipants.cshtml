@@ -1,0 +1,63 @@
+@page
+@model WebApp.Pages.Participants.ExistingParticipants
+
+@{
+    ViewData["Title"] = "Osaleja lisamine";
+    List<SelectListItem> selectList = new List<SelectListItem>();
+    foreach (var participant in Model.Participants!)
+    {
+        string text = $"{participant.Type.ToString().ToUpper()} - {participant.FullName} - {participant.IdentityCode}";
+        if (participant.Type.ToString().Equals("j"))
+        {
+            text = $"{participant.Type.ToString().ToUpper()} - {participant.Naming} - {participant.RegisterCode}";
+        }
+        SelectListItem item = new SelectListItem()
+        {
+            Text = text,
+            Value = participant.Id.ToString()
+        };
+        selectList.Add(item);
+    }
+}
+<div class="row">
+    @if (Model.Participants.Count > 0)
+    {
+        <div class="col-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ParticipantId" class="control-label">Olemasolev osaleja:</label>
+                    <select asp-items="selectList" onchange="removeMessage();" asp-for="ParticipantId" class="form-control">
+                        <option disabled="disabled" selected="selected" value="none">--vali siit--</option>
+                    </select>
+                </div>
+                <div class="text-danger" id="message">@Model.Message</div>
+                <input asp-for="EventId" type="hidden" value="@Model.EventId"/>
+                <div class="form-group">
+                    <input type="submit" value="Vali" id="existingParticipantAddButton" class="btn btn-success"/>
+                </div>
+            </form>
+        </div>
+        <div class="col-4">
+            <p class="mb-4">Uue osaleja lisamiseks:</p>
+            <a role="button" class="btn btn-success" asp-page="/Participants/Create" asp-route-id="@Model.EventId">Lisa uus osaleja</a>
+            <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <p class="mb-4">Uue osaleja lisamiseks:</p>
+            <a role="button" class="btn btn-success" asp-page="/Participants/Create" asp-route-id="@Model.EventId">Lisa uus osaleja</a>
+            <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+        </div>
+    }
+</div>
+
+<script>
+function removeMessage() {
+    let element = document.querySelector("#message");
+    element.hidden = true;
+}
+</script>
+

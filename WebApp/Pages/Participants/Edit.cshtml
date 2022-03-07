@@ -1,0 +1,126 @@
+@page
+@model WebApp.Pages.Participants.EditModel
+
+@{
+    ViewData["Title"] = "Osaleja andmete muutmine";
+}
+
+<h1 xmlns="http://www.w3.org/1999/html">Osaleja andmete muutmine</h1>
+<hr/>
+<div class="row">
+    <div class="col-5">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group common-participant">
+                <label asp-for="Participant.Type" class="control-label">Tüüp</label>
+                <select onchange="RemainFormFields(this);" id="participantType" asp-for="Participant.Type" class="form-control">
+                    <option selected="true" disabled="disabled" value="none">--vali siit--</option>
+                    <option value="f">Füüsiline</option>
+                    <option value="j">Juriidiline</option>
+                </select>
+                <span asp-validation-for="Participant.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group common-participant">
+                <label asp-for="Participant.PaymentType" class="control-label">Maksmise viis</label>
+                <select asp-for="Participant.PaymentType" class="form-control">
+                    <option value="0">Ülekanne</option>
+                    <option value="1">Sularaha</option>
+                </select>
+                <span asp-validation-for="Participant.PaymentType" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group private-participant col">
+                    <label asp-for="Participant.FirstName" class="control-label">Eesnimi</label>
+                    <input asp-for="Participant.FirstName" class="form-control"/>
+                    <span asp-validation-for="Participant.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group private-participant col">
+                    <label asp-for="Participant.LastName" class="control-label">Perenimi</label>
+                    <input asp-for="Participant.LastName" class="form-control"/>
+                    <span asp-validation-for="Participant.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group private-participant">
+                <label asp-for="Participant.IdentityCode" class="control-label">Isikukood</label>
+                <input asp-for="Participant.IdentityCode" class="form-control"/>
+                <span asp-validation-for="Participant.IdentityCode" class="text-danger"></span>
+            </div>
+            <div class="form-group business-participant">
+                <label asp-for="Participant.Naming" class="control-label">Nimetus</label>
+                <input asp-for="Participant.Naming" class="form-control"/>
+                <span asp-validation-for="Participant.Naming" class="text-danger"></span>
+            </div>
+            <div class="form-group business-participant">
+                <label asp-for="Participant.RegisterCode" class="control-label">Registrikood</label>
+                <input asp-for="Participant.RegisterCode" class="form-control"/>
+                <span asp-validation-for="Participant.RegisterCode" class="text-danger"></span>
+            </div>
+            <div class="form-group business-participant">
+                <label asp-for="Participant.AmountOfGuests" class="control-label">Osalejate arv</label>
+                <input asp-for="Participant.AmountOfGuests" class="form-control"/>
+                <span asp-validation-for="Participant.AmountOfGuests" class="text-danger"></span>
+            </div>
+            <div class="form-group common-participant">
+                <label asp-for="Participant.AdditionalInfo" class="control-label">Lisainfo</label>
+                <textarea asp-for="Participant.AdditionalInfo" class="form-control"></textarea>
+                <span asp-validation-for="Participant.AdditionalInfo" class="text-danger"></span>
+            </div>
+            <div class="text-danger" id="message">@Model.Message</div>
+            <input type="hidden" asp-for="Participant.CreatedAt"/>
+            <input type="hidden" asp-for="Participant.Id"/>
+            <div class="form-group">
+                <input type="submit" id="participantEditButton" value="Salvesta" class="btn btn-success"/>
+                <a role="button" class="btn btn-primary" asp-page="../Participants/Details" asp-route-id="@Model.Participant.Id">Tagasi</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<script>
+let businessFields = document.getElementsByClassName("business-participant");
+let privateFields = document.getElementsByClassName("private-participant");
+let commonFields = document.getElementsByClassName("common-participant");
+let participantType = document.querySelector("#participantType");
+let message = document.querySelector("#message");
+
+if (participantType.value === "f") {
+    for (const businessField of businessFields) {
+        businessField.hidden = true;
+    }
+}
+else {
+    for (const privateField of privateFields) {
+        privateField.hidden = true;
+    }
+}
+
+function RemainFormFields(field) {
+    message.hidden = true;
+    if (field.value === 'f') {
+        for (const businessField of businessFields) {
+            businessField.hidden = true;
+        }
+        for (const privateField of privateFields) {
+            privateField.hidden = false;
+        }
+        for (const commonField of commonFields) {
+            commonField.hidden = false;
+        }
+    }
+        if (field.value === 'j') {
+            for (const businessField of businessFields) {
+                businessField.hidden = false;
+            }
+            for (const privateField of privateFields) {
+                privateField.hidden = true;
+            }
+            for (const commonField of commonFields) {
+                commonField.hidden = false;
+            }
+        }
+}
+</script>

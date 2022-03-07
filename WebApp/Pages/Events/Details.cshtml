@@ -1,0 +1,111 @@
+@page
+@model WebApp.Pages.Events.DetailsModel
+
+@{
+    ViewData["Title"] = "Ürituse andmed";
+}
+
+<h1>Ürituse andmed</h1>
+<hr/>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nimetus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Naming)
+        </dd>
+        <dt class="col-sm-2">
+            Algus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.StartsAt)
+        </dd>
+        <dt class="col-sm-2">
+            Koht
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Place)
+        </dd>
+        <dt class="col-sm-2">
+            Lisainfo
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Event.AdditionalInfo != null)
+            {
+                @Html.DisplayFor(model => model.Event.AdditionalInfo)
+            }
+            else
+            {
+                @Html.Raw("-")
+            }
+        </dd>
+    </dl>
+</div>
+@if (Model.Event.EventParticipants!.Count(ep => !ep.IsDeleted) == 0)
+{
+    <div class="fw-bold" id="missingParticipants">
+        Antud üritusega ei ole ühtegi osalejat seotud.
+    </div>
+}
+else
+{
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Nimi
+                </th>
+                <th>
+                    Isiku - või registrikood
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Event.EventParticipants!)
+            {
+                if (!item.IsDeleted)
+                {
+                    <tr class="participant-table-info">
+                        <td>
+                            <a asp-page="../Participants/Details" asp-route-eventId="@item.EventId" asp-route-id="@item.ParticipantId">
+                                @if (item.Participant!.Type == 'f')
+                                {
+                                    @Html.DisplayFor(modelItem => item.Participant.FullName)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Participant.Naming)
+                                }
+                            </a>
+                        </td>
+                        <td>
+                            @if (item.Participant!.Type == 'f')
+                            {
+                                @Html.DisplayFor(modelItem => item.Participant.IdentityCode)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Participant.RegisterCode)
+                            }
+                        </td>
+                        <td>
+                            <a role="button" class="btn btn-danger" asp-page="../Participants/Delete" asp-route-eventId="@item.EventId" asp-route-participantId="@item.ParticipantId">Kustuta osaleja ürituselt</a>
+                        </td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+}
+<div>
+    @if (Model.Event.StartsAt > DateTime.Now)
+    {
+        <a role="button" id="eventDeleteButton" class="btn btn-danger" asp-page="./Delete" asp-route-id="@Model.Event.Id">Kustuta üritus</a> @Html.Raw("|")
+    }
+    <a role="button" class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Event.Id">Muuda ürituse andmed</a> |
+    <a role="button" class="btn btn-primary" asp-page="../Index">Avalehele</a>
+</div>
