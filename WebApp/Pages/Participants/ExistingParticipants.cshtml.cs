@@ -42,14 +42,11 @@ public class ExistingParticipants : PageModel
             await _context.Participants.Where(p => p.Id == ParticipantId).FirstOrDefaultAsync();
         if (currentParticipant == null)
         {
-            //TODO! Peaks olema veateade
             return RedirectToPage("../Index");
         }
         
         if (currentEvent == null)
         {
-            //TODO! Peaks olema veateade
-            Console.WriteLine("Event missing");
             return RedirectToPage("../Index");
         }
 
