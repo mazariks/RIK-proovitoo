@@ -31,7 +31,8 @@ Rakenduse põhiprojektiks on "WebApp", kust rakendust käivitatakse.
 
 
 ### Selleks, et rakendust käivitada:
-kuna kasutusel on mälupõhine andmebaas, siis rakenduse käivitamiseks tuleb vajutada "Run Code" (SHIFT+F10 Rideri puhul) peale, siis rakenduse kood saab kompileeritud ja käivitatud (kui kompileerimine õnnestus).
+peale koodi kloonimist on vaja seda lahti teha kasutades faili "EventSystem.sln" IDE-s. See paneb korrektselt kokku kõik kaustad tööle ning võimaldab rakenduse käivitamist.
+Kuna kasutusel on mälupõhine andmebaas, siis rakenduse käivitamiseks tuleb vajutada "Run Code" (SHIFT+F10 Rideri puhul) peale, siis rakenduse kood saab kompileeritud ja käivitatud (kui kompileerimine õnnestus).
 **Testimiseks - failis "program.cs" saab märkida, et igal käivitamisel andmebaas kustutakse ära käsuga "EnsureDeleted();".**
 
 ### Autommattestide käivitamiseks:

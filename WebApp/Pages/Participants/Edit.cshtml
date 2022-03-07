@@ -12,7 +12,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group common-participant">
-                <label asp-for="Participant.Type" class="control-label">Tüüp</label>
+                <label asp-for="Participant.Type" class="control-label">Tüüp <span class="text-danger">*</span></label>
                 <select onchange="RemainFormFields(this);" id="participantType" asp-for="Participant.Type" class="form-control">
                     <option selected="true" disabled="disabled" value="none">--vali siit--</option>
                     <option value="f">Füüsiline</option>
@@ -21,7 +21,7 @@
                 <span asp-validation-for="Participant.Type" class="text-danger"></span>
             </div>
             <div class="form-group common-participant">
-                <label asp-for="Participant.PaymentType" class="control-label">Maksmise viis</label>
+                <label asp-for="Participant.PaymentType" class="control-label">Maksmise viis <span class="text-danger">*</span></label>
                 <select asp-for="Participant.PaymentType" class="form-control">
                     <option value="0">Ülekanne</option>
                     <option value="1">Sularaha</option>
@@ -30,33 +30,33 @@
             </div>
             <div class="row">
                 <div class="form-group private-participant col">
-                    <label asp-for="Participant.FirstName" class="control-label">Eesnimi</label>
+                    <label asp-for="Participant.FirstName" class="control-label">Eesnimi <span class="text-danger private-participant">*</span></label>
                     <input asp-for="Participant.FirstName" class="form-control"/>
                     <span asp-validation-for="Participant.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group private-participant col">
-                    <label asp-for="Participant.LastName" class="control-label">Perenimi</label>
+                    <label asp-for="Participant.LastName" class="control-label">Perenimi <span class="text-danger private-participant">*</span></label>
                     <input asp-for="Participant.LastName" class="form-control"/>
                     <span asp-validation-for="Participant.LastName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group private-participant">
-                <label asp-for="Participant.IdentityCode" class="control-label">Isikukood</label>
+                <label asp-for="Participant.IdentityCode" class="control-label">Isikukood <span class="text-danger private-participant">*</span></label>
                 <input asp-for="Participant.IdentityCode" class="form-control"/>
                 <span asp-validation-for="Participant.IdentityCode" class="text-danger"></span>
             </div>
             <div class="form-group business-participant">
-                <label asp-for="Participant.Naming" class="control-label">Nimetus</label>
+                <label asp-for="Participant.Naming" class="control-label">Nimetus <span class="text-danger business-participant">*</span></label>
                 <input asp-for="Participant.Naming" class="form-control"/>
                 <span asp-validation-for="Participant.Naming" class="text-danger"></span>
             </div>
             <div class="form-group business-participant">
-                <label asp-for="Participant.RegisterCode" class="control-label">Registrikood</label>
+                <label asp-for="Participant.RegisterCode" class="control-label">Registrikood <span class="text-danger business-participant">*</span></label>
                 <input asp-for="Participant.RegisterCode" class="form-control"/>
                 <span asp-validation-for="Participant.RegisterCode" class="text-danger"></span>
             </div>
             <div class="form-group business-participant">
-                <label asp-for="Participant.AmountOfGuests" class="control-label">Osalejate arv</label>
+                <label asp-for="Participant.AmountOfGuests" class="control-label">Osalejate arv <span class="text-danger business-participant">*</span></label>
                 <input asp-for="Participant.AmountOfGuests" class="form-control"/>
                 <span asp-validation-for="Participant.AmountOfGuests" class="text-danger"></span>
             </div>
