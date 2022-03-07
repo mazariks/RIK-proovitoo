@@ -7,7 +7,7 @@
 2. saab muuta ürituste andmeid;
 3. saab vaadata ürituste andmeid;
 4. saab üritusi (mis toimuvad tulevikus) kustutada (ürituse osalejaid kustutakse ka);
-5. saab üritustele lisada osalejaid (füüsiline või juriidiline);
+5. saab üritustele luua osalejaid (füüsiline - "lisainfo" välja pikkus on 1500 märki või juriidiline - "lisainfo" välja pikkus on 5000 märki);
 6. saab vaadata/muuta üritustele registreeritud osalejate andmeid;
 7. saab lisada üritusele ka baasis olemasolevaid osalejaid (juhul kui selline osaleja ei osale veel selles ürituses);
 8. saab täielikult kustutada osalejaid (sel juhul pole võimalik neid lisada teistele üritustele).
@@ -18,7 +18,8 @@ Arenduskeskkonnaks oli valitud JetBrains-i oma Rider.
 Rakenduse valmimiseks olid kasutatud sellised tööriistad nagu C# (dotnet6.0), Razor Pages ja andmebaasi mootoriks SQLite.
 Selleks, et andmebaas saaks suhelda rakendusega, on kasutusel ORM EF6 (Entity Framework 6).
 
-Andmebaasi skeem sisaldab 3 olemit ning 1 klass on kasutusel ENUM-na, seega selle jaoks puudub eraldi olem baasis.
+Andmebaasi ERD skeem sisaldab 3 olemit ning 1 klass on kasutusel ENUM-na, seega selle jaoks puudub eraldi olem baasis.
+**ERD skeemi loomiseks oli kasutatud rakendus "QSEE SuperLite" (seal puudub võimalus kasutada andmetüübiks GUID, seega skeemil on ID väli märgitud VARCHAR-na).**
 Kuna kõik olemid kasutavad selliseid veerge nagu "ID", "CreatedAt", "UpdatedAt", siis olid tehtud eraldi interface-d ja baasolemid.
 Rakenduse põhiklassid siis implementeerivad funktsionaalsust (koodi paindlikuse eesmärgil).
 Baasolemid asuvad projektides "Base.Contracts", "Base.Domain" (abstraktsed klassid). Rakenduse põhiolemid projektis "App.Domain".
