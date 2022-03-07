@@ -41,6 +41,6 @@ Kasutusel on Seleniumi WebDriver Google Chrome jaoks (versioon: 99.0.4844.51).
 Teise versiooni jaoks draiverit saab alla laadida aadressilt "https://chromedriver.chromium.org/downloads" ning sisu lahti pakkida kausta "drivers", mis asub samas projektis.
 Rakendus hakkab otsima draiverit just sellest kaustast!
 
-Testide käivitamiseks **rakendus peab olema käivitatud** ka (muidu testid feilivad ühenduse puudumise tõttu).
+Testide käivitamiseks **rakendus peab olema käivitatud (selleks, et Visual Studio lubaks teste käivitada, tuleb rakendust käivitada ilma silumiseta ehk "Start Without Debugging")** ka (muidu testid feilivad ühenduse puudumise tõttu).
 Testid eeldavad, et rakendust käivitatakse aadressilt **"https://localhost:7031/"**. Port on vaikimisi seadistatud 7031-ks failis "WebApp/Properties/launchSettings.json".
 Käivitamiseks tuleb vajutada **Run All** ikooni testide juures.
